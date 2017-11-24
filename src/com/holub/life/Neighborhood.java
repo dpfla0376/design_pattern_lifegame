@@ -140,7 +140,7 @@ public final class Neighborhood implements Cell
 			||	southeast.isDisruptiveTo().the( Direction.NORTHWEST )
 			||	southwest.isDisruptiveTo().the( Direction.NORTHEAST )
 		)
-		{
+		{   // 내가 활성화 되어있거나, 가장자리에 있을 때
 			Cell	northCell,		southCell,
 					eastCell,		westCell,
 					northeastCell, northwestCell,

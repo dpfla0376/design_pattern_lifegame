@@ -26,16 +26,16 @@ package com.holub.life;
 public class Direction
 {	private int	map = BITS_NONE;
 
-	private static final int BITS_NORTH     = 0x0001;
-	private static final int BITS_SOUTH     = 0x0002;
-	private static final int BITS_EAST      = 0x0004;
-	private static final int BITS_WEST	   	= 0x0008;
-	private static final int BITS_NORTHEAST = 0x0010;
-	private static final int BITS_NORTHWEST = 0x0020;
-	private static final int BITS_SOUTHEAST = 0x0040;
-	private static final int BITS_SOUTHWEST = 0x0080;
-	private static final int BITS_ALL	   	= 0x00ff;
-	private static final int BITS_NONE      = 0x0000;
+	private static final int BITS_NORTH     = 0x0001;	// 0000 0000 0000 0001
+	private static final int BITS_SOUTH     = 0x0002;	// 0000 0000 0000 0010
+	private static final int BITS_EAST      = 0x0004;	// 0000 0000 0000 0100
+	private static final int BITS_WEST	   	= 0x0008;	// 0000 0000 0000 1000
+	private static final int BITS_NORTHEAST = 0x0010;	// 0000 0000 0001 0000
+	private static final int BITS_NORTHWEST = 0x0020;	// 0000 0000 0010 0000
+	private static final int BITS_SOUTHEAST = 0x0040;	// 0000 0000 0100 0000
+	private static final int BITS_SOUTHWEST = 0x0080;	// 0000 0000 1000 0000
+	private static final int BITS_ALL	   	= 0x00ff;	// 0000 0000 1111 1111
+	private static final int BITS_NONE      = 0x0000;	// 0000 0000 0000 0000
 
 	// Various directions. Note that, since we're talking
 	// about the edges of a grid, that NORTH | WEST and NORTHWEST are
@@ -64,6 +64,7 @@ public class Direction
 	public void 	clear (			 	){ map = BITS_NONE; 	}
 	public void 	add   ( Direction d ){ map |= d.map;	 	}
 	public boolean 	has   ( Direction d ){ return the(d);				}
+	/** 해당 방향이 map에 들어있는지 확인 */
 	public boolean 	the   ( Direction d ){ return (map & d.map)==d.map; }
 
 	private static final class Immutable extends Direction
