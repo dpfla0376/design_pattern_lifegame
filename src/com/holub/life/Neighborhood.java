@@ -361,7 +361,16 @@ public final class Neighborhood implements Cell
 				return;
 
 			readingPermitted.waitForTrue();
-
+			
+			/** yealim : 8*8 cell grid를 순회하며 redraw 한다.
+			 * 이때	하나의 cell(Neighborhood) 안에는 또 8*8 cell grid(Resident)가 있으므로 또 redraw를 돈다.
+			 * 여기서의 subcell은 큰 네모 블록(Neighborhood) 안의 작은 네모 블록들(Resident)이다.
+			 * grid[row][column].redraw( g, subcell, drawAll );	// Neighborhood 내의 Resident 하나의 redraw 호출
+			 * subcell.translate( subcell.width, 0);	// Neighborhood 행렬에서 한칸 옆으로 이동
+			 * subcell.translate(-compoundWidth, subcell.height);	// Neighborhood 행렬에서 한줄 아래 맨 앞칸으로 이동
+			 * 2017/11/20
+			 *
+			 */
 
 			for( int row = 0; row < gridSize; ++row )
 			{   for( int column = 0; column < gridSize; ++column )
