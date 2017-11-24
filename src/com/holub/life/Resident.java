@@ -31,11 +31,9 @@ public final class Resident implements Cell
 	/** figure the next state.
 	 *  @return true if the cell is not stable (will change state on the
 	 *  next transition().
-<<<<<<< HEAD
-=======
 	 *  현재 상태와 다음 상태가 다르다면 isStable()은 false, figureNextState()은 바뀌어야하므로 true 반환
 	 *  현재 상태와 다음 상태가 같다면 isStable()은 true, figureNextState()는 바뀔 필요 없으므로 false 반환
->>>>>>> fed7247612334f25bb2c67ff3b0b449583b805c7
+
 	 */
 	public boolean figureNextState(
 							Cell north, 	Cell south,

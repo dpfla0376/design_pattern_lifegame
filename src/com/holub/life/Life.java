@@ -33,7 +33,7 @@ public final class Life extends JFrame
 
 		pack();
 
-		setVisible( true );	// 이제 게임이 뿅 하고 나옴
+		setVisible( true );	
 
 	}
 }

@@ -113,7 +113,7 @@ public class Publisher
 	 *  solution to this problem.
 	 */
 
-	// cellÀº publisherÀÇ ¼öÃ»À» µé¶ó
+	// cellì€ publisherì˜ ìˆ˜ì²­ì„ ë“¤ë¼
 	public void publish( Distributor deliveryAgent )
 	{	for(Node cursor = subscribers; cursor != null; cursor = cursor.next)
 			cursor.accept( deliveryAgent );

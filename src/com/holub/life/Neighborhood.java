@@ -363,16 +363,6 @@ public final class Neighborhood implements Cell
 			readingPermitted.waitForTrue();
 
 
-			/** yealim : 8*8 cell grid瑜� �닚�쉶�븯硫� redraw �븳�떎.
-			 * �씠�븣	�븯�굹�쓽 cell(Neighborhood) �븞�뿉�뒗 �삉 8*8 cell grid(Resident)媛� �엳�쑝誘�濡� �삉 redraw瑜� �룉�떎.
-			 * �뿬湲곗꽌�쓽 subcell�� �겙 �꽕紐� 釉붾줉(Neighborhood) �븞�쓽 �옉�� �꽕紐� 釉붾줉�뱾(Resident)�씠�떎.
-			 * grid[row][column].redraw( g, subcell, drawAll );	// Neighborhood �궡�쓽 Resident �븯�굹�쓽 redraw �샇異�
-			 * subcell.translate( subcell.width, 0);	// Neighborhood �뻾�젹�뿉�꽌 �븳移� �쁿�쑝濡� �씠�룞
-			 * subcell.translate(-compoundWidth, subcell.height);	// Neighborhood �뻾�젹�뿉�꽌 �븳以� �븘�옒 留� �븵移몄쑝濡� �씠�룞
-			 * 2017/11/20
-			 *
-			 */
-
 			for( int row = 0; row < gridSize; ++row )
 			{   for( int column = 0; column < gridSize; ++column )
 				{   grid[row][column].redraw( g, subcell, drawAll );	// {=Neighborhood.redraw3}
