@@ -1,21 +1,13 @@
 package com.holub.life;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import java.io.*;
-import javax.swing.*;
-
-import com.holub.io.Files;
-import com.holub.life.Cell;
-import com.holub.ui.MenuSite;
-import com.holub.ui.Colors;
 import com.holub.asynch.ConditionVariable;
+import com.holub.ui.Colors;
 
-import com.holub.life.Cell;
-import com.holub.life.Clock;
-import com.holub.life.Direction;
-import com.holub.life.Storable;
+import java.awt.*;
+import java.io.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 /***
  * A group of {@link Cell} objects. Cells are grouped into neighborhoods
@@ -118,6 +110,7 @@ public final class Neighborhood implements Cell
 	 * 
 	 *  @return true if this neighborhood (i.e. any of it's cells)
 	 *  			 will change state in the next transition.
+	 *  			 yealim : 다음 전이때 현재 neighborhood의 상태가 변한다면 true 반환
 	 */
 
 	public boolean figureNextState(	Cell north, 	Cell south,
@@ -127,8 +120,9 @@ public final class Neighborhood implements Cell
 	{
 		boolean	nothingHappened = true;
 
-		// Is some ajacent neigborhood active on the edge
-		// that ajoins me?
+		/** Is some ajacent neigborhood active on the edge
+		* that ajoins me?
+		 * */
 
 		if(		amActive
 			||	north	 .isDisruptiveTo().the( Direction.SOUTH 	  )
@@ -151,7 +145,7 @@ public final class Neighborhood implements Cell
 			for( int row = 0; row < gridSize; ++row )
 			{	for( int column = 0; column < gridSize; ++column )
 				{
-					// Get the current cell's eight neighbors
+					/** Get the current cell's eight neighbors */
 
 					if(row == 0 )		//{=Neighborhood.get.neighbors}
 					{	northwestCell = (column==0)
@@ -217,12 +211,16 @@ public final class Neighborhood implements Cell
 							;
 					}
 
-					// Tell the cell to change its state. If
-					// the cell changed (the figureNextState request
-					// returned false), then mark the current block as
-					// unstable. Also, if the unstable cell is on the
-					// edge of the block modify activeEdges to
-					//  indicate which edge or edges changed. 
+					/** Tell the cell to change its state. If
+					 the cell changed (the figureNextState request
+					 returned false), then mark the current block as
+					 unstable. Also, if the unstable cell is on the
+					 edge of the block modify activeEdges to
+					 indicate which edge or edges changed.
+					 yealim : Cell에게 상태 변화가 있는지 알려준다.
+					 만약 바뀌었다면 현재 블록을 unstable로 표시한다.
+					 또한 unstable cell이 block의 edge에 있다면 activeEdges가 그 edge 혹은 바뀐 edge를 가리키도록 한다.
+					 */
 
 					if( grid[row][column].figureNextState
 						( northCell, 	 southCell,
