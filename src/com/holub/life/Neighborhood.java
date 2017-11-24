@@ -414,6 +414,14 @@ public final class Neighborhood implements Cell
 	 */
 	public void userClicked(Point here, Rectangle surface)
 	{
+	    /* outermostCell.userClicked로 1차 들어옴 */
+		// surface는 Universe의 네모
+		// 여기서 Cell은 Universe의 Cell이기 때문에 Neighborhood임.
+
+        /* grid[row][column].userClicked로 2차 들어옴 */
+        // surface는 Neighborhood의 네모
+        // 여기서 Cell은 Neighborhood의 Cell이기 때문에 Resident임.
+
 		int pixelsPerCell = surface.width / gridSize ;
 		int row				= here.y     	/ pixelsPerCell ;
 		int column			= here.x     	/ pixelsPerCell ;
@@ -421,10 +429,22 @@ public final class Neighborhood implements Cell
 		int columnOffset	= here.x     	% pixelsPerCell ;
 
 		Point position = new Point( columnOffset, rowOffset );
+
+		/* outermostCell.userClicked로 1차 들어옴 */
+		// subcell은 Neightborhood 하나
+
+        /* grid[row][column].userClicked로 2차 들어옴 */
+        // subcell은 Resident 하나
 		Rectangle subcell = new Rectangle(	0, 0, pixelsPerCell,
 												  pixelsPerCell );
 
 		grid[row][column].userClicked(position, subcell); //{=Neighborhood.userClicked.call}
+
+		/* outermostCell.userClicked로 1차 들어옴 */
+		// Universe의 파란 선!!
+
+		/* grid[row][column].userClicked로 2차 들어옴 */
+		// Neighborhood의 파란 선!!
 		amActive = true;
 		rememberThatCellAtEdgeChangedState(row, column);
 	}
