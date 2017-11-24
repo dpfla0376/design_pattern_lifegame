@@ -55,23 +55,30 @@ public class Universe extends JPanel
 
 		outermostCell = new Neighborhood
 						(	DEFAULT_GRID_SIZE,
+							// prototype: neighborhood
 							new Neighborhood
 							(	DEFAULT_GRID_SIZE,
+								// prototype: resident
 								new Resident()
 							)
 						);
 
+		// ì‹¤ì œ pixel ì‚¬ì´ì¦ˆ
 		final Dimension PREFERRED_SIZE =
 						new Dimension
 						(  outermostCell.widthInCells() * DEFAULT_CELL_SIZE,
 						   outermostCell.widthInCells() * DEFAULT_CELL_SIZE
 						);
 
-		// ÄÄÆÛ³ÍÆ®ÀÇ »çÀÌÁî, À§Ä¡, °¡½Ã¼ºÀÌ º¯°æµÇ¸é(ÀÚ), Ã»ÃëÀÚ ¿ÀºêÁ§Æ®ÀÇ °ü·Ã ¸Ş¼Òµå°¡ ºÒ·Á °¡
-		// ComponentEvent °¡ ±× ¸Ş¼Òµå¿¡°Ô °Ç³×Áı´Ï´Ù.
+		// ì»´í¬ë„ŒíŠ¸ ì´ë²¤íŠ¸ë¥¼ ë°›ëŠ”ì²­ì·¨ì ì¸í„°í˜ì´ìŠ¤
+        // ê´€ë ¨ ë©”ì†Œë“œë§Œì„ ì˜¤ë²„ë¼ì´ë“œ
 		addComponentListener
 		(	new ComponentAdapter()
-			{	public void componentResized(ComponentEvent e)
+			{	// componentHidden(ComponentEvent e)
+                // componentMoved(ComponentEvent e)
+                // componentShown(ComponentEvent e)
+                // ì–˜ë“¤ë„ ìˆìŒ. ì•„ë˜ Resizedë§Œ override í•œ ê²ƒ
+			    public void componentResized(ComponentEvent e)
 				{
 					// Make sure that the cells fit evenly into the
 					// total grid size so that each cell will be the
@@ -96,10 +103,14 @@ public class Universe extends JPanel
 		addMouseListener					//{=Universe.mouse}
 		(	new MouseAdapter()
 			{	public void mousePressed(MouseEvent e)
-				{	Rectangle bounds = getBounds();
+				{
+				    // getBoundsëŠ” Ractangleì„ ëŒë ¤ì¤Œ ì¢Œìƒ(x,y)ì™€ ìš°í•˜(width, height)ë¥¼ ê°€ì§€ê³  ìˆìŒ
+				    Rectangle bounds = getBounds();
 					bounds.x = 0;
 					bounds.y = 0;
-					outermostCell.userClicked(e.getPoint(),bounds);
+					// ë§ˆìš°ìŠ¤ê°€ ëˆŒë¦¬ë©´ í•´ë‹¹ í¬ì¸íŠ¸ì™€ bound ì „ë‹¬.
+                    // outermostCellì€ Neighborhoodì„
+					outermostCell.userClicked(e.getPoint(),bounds); // == Neighborhood.userClicked
 					repaint();
 				}
 			}
@@ -159,10 +170,13 @@ public class Universe extends JPanel
 
 	/** Singleton Accessor. The Universe object itself is manufactured
 	 *  in Neighborhood.createUniverse()
+	 *  ê·¸ëŸ°ë° ì´ëŸ°ê²ƒì€ ì—†ìŒ. ì£¼ì„ì—ì„œë§Œ ì¡´ì¬í•˜ê³ ìˆìŒ
 	 */
 
 	public static Universe instance()
-	{	return theInstance;
+	{
+	    // public static final theInstance = new Universe();
+	    return theInstance;
 	}
 
 	private void doLoad()

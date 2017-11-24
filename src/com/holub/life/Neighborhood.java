@@ -66,11 +66,11 @@ public final class Neighborhood implements Cell
 	{
 		this.gridSize = gridSize;
  		this.grid = new Cell[gridSize][gridSize];
-
 		for( int row = 0; row < gridSize; ++row )
 			for( int column = 0; column < gridSize; ++column )
 				grid[row][column] = prototype.create();
 	}
+
 
 	/** The "clone" method used to create copies of the current
 	 *  neighborhood. This method is called from the containing

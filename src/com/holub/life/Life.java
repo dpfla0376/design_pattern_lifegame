@@ -12,7 +12,7 @@ import com.holub.ui.MenuSite;
 
 public final class Life extends JFrame
 {	
-	private static JComponent universe;
+	private static JComponent universe;	// 안쓰는 변수
 
 	public static void main( String[] arguments )
 	{	new Life();
