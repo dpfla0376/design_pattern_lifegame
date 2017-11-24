@@ -124,6 +124,7 @@ public final class Neighborhood implements Cell
 		* that ajoins me?
 		 * */
 
+        /** 내가(Neighborhood) 활성화 되어있거나, 나의 이웃중 하나라도 active한 상태이면 */
 		if(		amActive
 			||	north	 .isDisruptiveTo().the( Direction.SOUTH 	  )
 			||	south	 .isDisruptiveTo().the( Direction.NORTH 	  )
@@ -134,9 +135,10 @@ public final class Neighborhood implements Cell
 			||	southeast.isDisruptiveTo().the( Direction.NORTHWEST )
 			||	southwest.isDisruptiveTo().the( Direction.NORTHEAST )
 		)
-		{   /** 1차 들어옴 */
-		    // 내가(Neighborhood) 활성화 되어있거나, 나의 Neighborhood들이 가장자리에 있을 때
-            // 이 Cell들은 Neighborhood들
+		{
+		    /** 1차 들어옴
+             * 이 Cell들은 Neighborhood
+             * */
 			Cell	northCell,		southCell,
 					eastCell,		westCell,
 					northeastCell, northwestCell,
@@ -149,16 +151,18 @@ public final class Neighborhood implements Cell
 				{
 					/** Get the current cell's eight neighbors */
 
-                    /** 1차 들어옴 */
-                    // Universe 대상. 인자로 들어온 내 이웃들은 다 Dummy
-                    // Neighborhood grid[][]
-                    // 새로 구해줄 이웃은 Neighborhood
+                    /** 1차 들어옴.
+                     * Universe 대상. 인자로 들어온 내 이웃들은 다 Dummy
+                     * Neighborhood grid[][]
+                     * 새로 구해줄 이웃은 Neighborhood
+                     */
 
-                    /** 2차 들어옴*/
-                    // Neighborhood 대상. 내 이웃들은 Neighborhood야.
-                    // Resident grid[][]
-                    // 새로 구해줄 이웃은 Resident
-
+                    /** 2차 들어옴
+                     * Neighborhood 대상. 내 이웃들은 Neighborhood야.
+                     * Resident grid[][]
+                     * 새로 구해줄 이웃은 Resident
+                     * */
+                
 					if(row == 0 )		//{=Neighborhood.get.neighbors}
 					{	northwestCell = (column==0)
 							? northwest.edge(gridSize-1,gridSize-1)
