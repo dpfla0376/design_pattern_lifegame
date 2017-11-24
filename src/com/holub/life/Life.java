@@ -19,7 +19,8 @@ public final class Life extends JFrame
 	}
 
 	private Life()
-	{	super("The Game of Life. "
+
+	{	super( "The Game of Life. "
 					+"(c)2003 Allen I. Holub <http://www.holub.com>");
 
 		// Must establish the MenuSite very early in case
@@ -31,6 +32,8 @@ public final class Life extends JFrame
 		getContentPane().add( Universe.instance(), BorderLayout.CENTER); //{=life.java.install}
 
 		pack();
+
 		setVisible( true );	// 이제 게임이 뿅 하고 나옴
+
 	}
 }
