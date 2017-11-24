@@ -124,7 +124,6 @@ public final class Neighborhood implements Cell
 		* that ajoins me?
 		 * */
 
-        /** 내가(Neighborhood) 활성화 되어있거나, 나의 이웃중 하나라도 active한 상태이면 */
 		if(		amActive
 			||	north	 .isDisruptiveTo().the( Direction.SOUTH 	  )
 			||	south	 .isDisruptiveTo().the( Direction.NORTH 	  )
@@ -137,6 +136,7 @@ public final class Neighborhood implements Cell
 		)
 		{
 		    /** 1차 들어옴
+             * 내가(Neighborhood) 활성화 되어있거나, 나의 이웃중 하나라도 active한 상태이면..인줄알았는데 뭐지
              * 이 Cell들은 Neighborhood
              * */
 			Cell	northCell,		southCell,
@@ -162,7 +162,7 @@ public final class Neighborhood implements Cell
                      * Resident grid[][]
                      * 새로 구해줄 이웃은 Resident
                      * */
-                
+
 					if(row == 0 )		//{=Neighborhood.get.neighbors}
 					{	northwestCell = (column==0)
 							? northwest.edge(gridSize-1,gridSize-1)
@@ -292,8 +292,14 @@ public final class Neighborhood implements Cell
 
 		for( int row = 0; row < gridSize; ++row ) //{=transition.start}
 			for( int column = 0; column < gridSize; ++column )
-			{	if( grid[row][column].transition() )
-				{	rememberThatCellAtEdgeChangedState(row, column);
+			{
+                /** Resident grid[][]일 때
+                 * grid[][].transition()은 해당 resident의 isStable()반환
+                 * stable이면 true
+                 */
+			    if( grid[row][column].transition() )
+                {
+				    rememberThatCellAtEdgeChangedState(row, column);
 					someSubcellChangedState = true;
 				}								 //{=transition.end}
 			}

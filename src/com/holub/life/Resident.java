@@ -26,6 +26,11 @@ public final class Resident implements Cell
 	private boolean amAlive 	= false;
 	private boolean willBeAlive	= false;
 
+	/** 현재 살아있고 다음에도 살아있을 예정 : true
+     * 현재 살아있고 다음에 죽을 예정 : false
+     * 현재 죽어있고 다음에도 죽을 예정 : true
+     * 현재 죽어있으나 다음에 살 예정 : false
+     * */
 	private boolean isStable(){return amAlive == willBeAlive; }
 
 	/** figure the next state.
@@ -110,6 +115,12 @@ public final class Resident implements Cell
 	public Cell    create()			{return new Resident();			}
 	public int 	   widthInCells()	{return 1;}
 
+	/** 현재 살아있고 다음에도 살 예정이면(isStable()==true) Direction.NONE
+     * 현재 죽어있고 다음에도 죽을 예정(isStable()==true) Direction.NONE
+     * 현재 살아있고 다음에 죽을 예정이면(isStable()==false) Direction.ALL
+	 * 현재 죽어있으나 다음에 살 예정이면(isStable()==false) Direction.ALL 반환
+     * 모두 Direction Type
+	 * */
 	public Direction isDisruptiveTo()
 	{	return isStable() ? Direction.NONE : Direction.ALL ;
 	}
