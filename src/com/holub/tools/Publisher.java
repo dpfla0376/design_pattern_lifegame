@@ -1,5 +1,7 @@
 package com.holub.tools;
 
+import java.util.Iterator;
+
 /*******************************************************************
  * This class replaces the Multicaster class that's described in
  * <i>Taming Java Threads</i>. It's better in almost every way
@@ -100,8 +102,51 @@ public class Publisher
 		public  void accept( Distributor deliveryAgent ) // deliveryAgent is
 		{	deliveryAgent.deliverTo( subscriber );		 // a "visitor"
 		}
+		public Iterator createIterator()
+        {
+            return new NodeIterator(this);
+        }
+        public Node copyNode()
+        {
+		    return new Node(this.subscriber, this.next);
+        }
 	}
 
+	private class NodeIterator implements Iterator {
+	    Object subscriber = null;
+	    Object cursor = null;
+	    boolean first = true;
+	    NodeIterator(Object subscriber)
+        {
+	        this.subscriber = subscriber;
+	        cursor = this.subscriber;
+        }
+
+        @Override
+        public boolean hasNext()
+        {
+        	if(first) {
+        		first = false;
+        		return true;
+        	}
+	        if(((Node)cursor).next == null)
+	        {
+	            return false;
+            }
+            else
+            {
+	            return true;
+            }
+        }
+
+        @Override
+        public Object next()
+        {
+            cursor = ((Node)subscriber).copyNode();
+            subscriber = ((Node)cursor).next;
+            return cursor;
+        }
+    }
 	private volatile Node subscribers = null;
 
 	/** Publish an event using the deliveryAgent. Note that this
@@ -115,10 +160,20 @@ public class Publisher
 
 	// cell은 publisher의 수청을 들라
 	public void publish( Distributor deliveryAgent )
-	{	for(Node cursor = subscribers; cursor != null; cursor = cursor.next)
+	{/*
+	     for(Node cursor = subscribers; cursor != null; cursor = cursor.next)
 			cursor.accept( deliveryAgent );
-	}
+		*/	
 
+	    Iterator subscribersIterator = subscribers.createIterator();
+	    while(subscribersIterator.hasNext()) {
+	        Node t = (Node)subscribersIterator.next();
+	        t.accept(deliveryAgent);
+        }
+        
+		
+	}
+	// Object: Listener
 	synchronized public void subscribe( Object subscriber )
 	{	subscribers = new Node( subscriber, subscribers );
 	}
