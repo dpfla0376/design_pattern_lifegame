@@ -91,7 +91,7 @@ public class Clock
 		 * ActionListener modifier를 따로 class로 빼서 각 메뉴마다 ActionListener 따로 구현..? (Factory Method Pattern 같오)
 		 * 근데 if문이 여기 하나뿐이라서 따로 빼는 것이 의미가 있는지 의문... class 각각 만드는게 더 overhead일지도...
 		 * */
-		ActionListener modifier =									//{=startSetup}
+		/*ActionListener modifier =									//{=startSetup}
 			new ActionListener()
 			{	public void actionPerformed(ActionEvent e)
 				{
@@ -113,8 +113,62 @@ public class Clock
 		MenuSite.addLine(this,"Go","Agonizing",	 	  	modifier);
 		MenuSite.addLine(this,"Go","Slow",		 		modifier);
 		MenuSite.addLine(this,"Go","Medium",	 	 	modifier);
-		MenuSite.addLine(this,"Go","Fast",				modifier); // {=endSetup}
+		MenuSite.addLine(this,"Go","Fast",				modifier); // {=endSetup} */
+
+		MenuSite.addLine(this,"Go","Halt",  			new MenuActionListener());
+		MenuSite.addLine(this,"Go","Tick (Single Step)", new TickActionListener());
+		MenuSite.addLine(this,"Go","Agonizing",	 	  	new AgonizingActionListener());
+		MenuSite.addLine(this,"Go","Slow",		 		new SlowActionListener());
+		MenuSite.addLine(this,"Go","Medium",	 	 	new MediumActionListener());
+		MenuSite.addLine(this,"Go","Fast",				new FastActionListener()); // {=endSetup}
 	}	//{=endCreateMenus}
+
+	private class MenuActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			startTicking(0);
+		}
+	}
+
+	private class TickActionListener extends MenuActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			tick();
+		}
+	}
+
+	private class AgonizingActionListener extends MenuActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			startTicking(500);
+		}
+	}
+
+	private class SlowActionListener extends MenuActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			startTicking(150);
+		}
+	}
+
+	private class MediumActionListener extends MenuActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			startTicking(70);
+		}
+	}
+
+	private class FastActionListener extends MenuActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			startTicking(30);
+		}
+	}
+
 
 	private Publisher publisher = new Publisher();
 
