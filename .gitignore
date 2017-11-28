@@ -42,3 +42,4 @@ target/
 .classpath
 .project
 bin/
+.class
