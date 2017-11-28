@@ -414,7 +414,7 @@ public final class Neighborhood implements Cell
 			}
 
 			g = g.create();
-			g.setColor( ColorTheme.theme.NEIGHBOR_BORDER_COLOR );
+			g.setColor( ColorTheme.NEIGHBOR_BORDER_COLOR );
 			g.drawRect( here.x, here.y, here.width, here.height );
 
 			if( amActive )
