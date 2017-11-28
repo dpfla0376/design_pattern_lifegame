@@ -152,6 +152,13 @@ public class Universe extends JPanel
 			}
 		);
 
+		/**
+         * Clock이 TimerTask를 돌면서 run() -> tick()
+         * tick()에서, 퍼블리셔가 퍼블리싱
+         * 퍼블리싱 -> deliverTo 동작
+         * deliverTo에서 구독자의 tick()동작시킴
+         * 조건에 따라 refreshNow()동작
+         * */
 		Clock.instance().addClockListener //{=Universe.clock.subscribe}
 		(	new Clock.Listener()
 			{	public void tick()

@@ -1,22 +1,13 @@
 package com.holub.life;
 
+
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
 import java.io.*;
-import javax.swing.*;
-
-import com.holub.io.Files;
-import com.holub.life.Cell;
-import com.holub.ui.MenuSite;
 import com.holub.ui.ColorTheme;
-import com.holub.ui.Colors;
 import com.holub.asynch.ConditionVariable;
-
-import com.holub.life.Cell;
-import com.holub.life.Clock;
-import com.holub.life.Direction;
-import com.holub.life.Storable;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 /***
  * A group of {@link Cell} objects. Cells are grouped into neighborhoods
@@ -119,6 +110,7 @@ public final class Neighborhood implements Cell
 	 * 
 	 *  @return true if this neighborhood (i.e. any of it's cells)
 	 *  			 will change state in the next transition.
+	 *  			 yealim : 다음 전이때 현재 neighborhood의 상태가 변한다면 true 반환
 	 */
 
 	public boolean figureNextState(	Cell north, 	Cell south,
@@ -128,8 +120,9 @@ public final class Neighborhood implements Cell
 	{
 		boolean	nothingHappened = true;
 
-		// Is some ajacent neigborhood active on the edge
-		// that ajoins me?
+		/** Is some ajacent neigborhood active on the edge
+		* that ajoins me?
+		 * */
 
 		if(		amActive
 			||	north	 .isDisruptiveTo().the( Direction.SOUTH 	  )
@@ -141,7 +134,17 @@ public final class Neighborhood implements Cell
 			||	southeast.isDisruptiveTo().the( Direction.NORTHWEST )
 			||	southwest.isDisruptiveTo().the( Direction.NORTHEAST )
 		)
-		{   // 내가 활성화 되어있거나, 가장자리에 있을 때
+		{
+		    /** 1차 들어옴
+             * 내가(Neighborhood) 활성화 되어있거나, 나의 이웃중 하나라도 active한 상태이면..인줄알았는데 뭐지
+             * 이 Cell들은 Neighborhood
+             * */
+
+            /**
+             * 2차 들어옴
+             * 내가(Resident) 활성화되어있거나,
+             * 내 이웃들중(Resident) 하나라도 상태변화가 있을 예정이면
+             */
 			Cell	northCell,		southCell,
 					eastCell,		westCell,
 					northeastCell, northwestCell,
@@ -152,7 +155,19 @@ public final class Neighborhood implements Cell
 			for( int row = 0; row < gridSize; ++row )
 			{	for( int column = 0; column < gridSize; ++column )
 				{
-					// Get the current cell's eight neighbors
+					/** Get the current cell's eight neighbors */
+
+                    /** 1차 들어옴
+                     * Universe 대상. 인자로 들어온 내 이웃들은 다 Dummy
+                     * Neighborhood grid[][]
+                     * 새로 구해줄 이웃은 Neighborhood
+                     */
+
+                    /** 2차 들어옴
+                     * Neighborhood 대상. 내 이웃들은 Neighborhood야.
+                     * Resident grid[][]
+                     * 새로 구해줄 이웃은 Resident
+                     * */
 
 					if(row == 0 )		//{=Neighborhood.get.neighbors}
 					{	northwestCell = (column==0)
@@ -218,13 +233,24 @@ public final class Neighborhood implements Cell
 							;
 					}
 
-					// Tell the cell to change its state. If
-					// the cell changed (the figureNextState request
-					// returned false), then mark the current block as
-					// unstable. Also, if the unstable cell is on the
-					// edge of the block modify activeEdges to
-					//  indicate which edge or edges changed. 
+					/** Tell the cell to change its state. If
+					 the cell changed (the figureNextState request
+					 returned false), then mark the current block as
+					 unstable. Also, if the unstable cell is on the
+					 edge of the block modify activeEdges to
+					 indicate which edge or edges changed.
+					 yealim : Cell에게 상태 변화가 있는지 알려준다.
+					 만약 바뀌었다면 현재 블록을 unstable로 표시한다.
+					 또한 unstable cell이 block의 edge에 있다면 activeEdges가 그 edge 혹은 바뀐 edge를 가리키도록 한다.
+					 */
 
+                    /** 1차 들어옴 */
+                    // grid는 Neighborhood
+                    // Neighborhood.figureNextState
+
+                    /** 2차 들어옴 */
+                    // grid는 Resident
+                    // Resident.figureNextState
 					if( grid[row][column].figureNextState
 						( northCell, 	 southCell,
 						  eastCell,	  	 westCell,
@@ -272,8 +298,14 @@ public final class Neighborhood implements Cell
 
 		for( int row = 0; row < gridSize; ++row ) //{=transition.start}
 			for( int column = 0; column < gridSize; ++column )
-			{	if( grid[row][column].transition() )
-				{	rememberThatCellAtEdgeChangedState(row, column);
+			{
+                /** Resident grid[][]일 때
+                 * grid[][].transition()은 해당 resident의 isStable()반환
+                 * stable이면 true
+                 */
+			    if( grid[row][column].transition() )
+                {
+				    rememberThatCellAtEdgeChangedState(row, column);
 					someSubcellChangedState = true;
 				}								 //{=transition.end}
 			}
@@ -415,11 +447,11 @@ public final class Neighborhood implements Cell
 	 */
 	public void userClicked(Point here, Rectangle surface)
 	{
-	    /* outermostCell.userClicked로 1차 들어옴 */
+	    /** outermostCell.userClicked로 1차 들어옴 */
 		// surface는 Universe의 네모
 		// 여기서 Cell은 Universe의 Cell이기 때문에 Neighborhood임.
 
-        /* grid[row][column].userClicked로 2차 들어옴 */
+        /** grid[row][column].userClicked로 2차 들어옴 */
         // surface는 Neighborhood의 네모
         // 여기서 Cell은 Neighborhood의 Cell이기 때문에 Resident임.
 
@@ -431,20 +463,20 @@ public final class Neighborhood implements Cell
 
 		Point position = new Point( columnOffset, rowOffset );
 
-		/* outermostCell.userClicked로 1차 들어옴 */
+		/** outermostCell.userClicked로 1차 들어옴 */
 		// subcell은 Neightborhood 하나
 
-        /* grid[row][column].userClicked로 2차 들어옴 */
+        /** grid[row][column].userClicked로 2차 들어옴 */
         // subcell은 Resident 하나
 		Rectangle subcell = new Rectangle(	0, 0, pixelsPerCell,
 												  pixelsPerCell );
 
 		grid[row][column].userClicked(position, subcell); //{=Neighborhood.userClicked.call}
 
-		/* outermostCell.userClicked로 1차 들어옴 */
+		/** outermostCell.userClicked로 1차 들어옴 */
 		// Universe의 파란 선!!
 
-		/* grid[row][column].userClicked로 2차 들어옴 */
+		/** grid[row][column].userClicked로 2차 들어옴 */
 		// Neighborhood의 파란 선!!
 		amActive = true;
 		rememberThatCellAtEdgeChangedState(row, column);
