@@ -239,6 +239,9 @@ public class Universe extends JPanel
 		outermostCell.redraw(g, panelBounds, true);		//{=Universe.redraw1}
 	}
 
+	public void repaintNow() {
+		repaint();
+	}
 	/** Force a screen refresh by queing a request on
 	 *  the Swing event queue. This is an example of the
 	 *  Active Object pattern (not covered by the Gang of Four).

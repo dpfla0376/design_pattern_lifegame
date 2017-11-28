@@ -9,6 +9,7 @@ import javax.swing.*;
 import com.holub.io.Files;
 import com.holub.life.Cell;
 import com.holub.ui.MenuSite;
+import com.holub.ui.ColorTheme;
 import com.holub.ui.Colors;
 import com.holub.asynch.ConditionVariable;
 
@@ -381,7 +382,7 @@ public final class Neighborhood implements Cell
 			}
 
 			g = g.create();
-			g.setColor( Colors.LIGHT_ORANGE );
+			g.setColor( ColorTheme.theme.NEIGHBOR_BORDER_COLOR );
 			g.drawRect( here.x, here.y, here.width, here.height );
 
 			if( amActive )
