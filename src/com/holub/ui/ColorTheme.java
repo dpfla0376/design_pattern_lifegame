@@ -20,12 +20,13 @@ public class ColorTheme {
 
     ColorTheme() {
         createMenu();
-        theme = new PurpleColorTheme();
+        setColorTheme(new PurpleColorTheme());
     }
 
     ColorTheme(Theme theme) {
         createMenu();
-        this.theme = theme;
+        setColorTheme(theme);
+
     }
 
     public static synchronized ColorTheme getInstance() {

@@ -120,7 +120,8 @@ public class Clock
 		MenuSite.addLine(this,"Go","Agonizing",	 	  	new AgonizingActionListener());
 		MenuSite.addLine(this,"Go","Slow",		 		new SlowActionListener());
 		MenuSite.addLine(this,"Go","Medium",	 	 	new MediumActionListener());
-		MenuSite.addLine(this,"Go","Fast",				new FastActionListener()); // {=endSetup}
+		MenuSite.addLine(this,"Go","Fast",				new FastActionListener());
+        MenuSite.addLine(this,"Go","Snail",				new SnailActionListener());// {=endSetup}
 	}	//{=endCreateMenus}
 
 	private class MenuActionListener implements ActionListener {
@@ -169,6 +170,12 @@ public class Clock
 		}
 	}
 
+	private class SnailActionListener extends  MenuActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            startTicking(250);
+        }
+    }
 
 	private Publisher publisher = new Publisher();
 
