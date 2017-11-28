@@ -104,7 +104,7 @@ public class Publisher
 		}
 		public Iterator createIterator()
         {
-            return new NodeIterator(subscriber);
+            return new NodeIterator(this);
         }
         public Node copyNode()
         {
@@ -113,17 +113,22 @@ public class Publisher
 	}
 
 	private class NodeIterator implements Iterator {
-	    Object subscriber = null;
+	    Object t = null;
 	    Object cursor = null;
-	    NodeIterator(Object subscriber)
+	    boolean first = true;
+	    NodeIterator(Object t)
         {
-	        this.subscriber = subscriber;
-	        cursor = this.subscriber;
+	        this.t = t;
+	        cursor = this.t;
         }
 
         @Override
         public boolean hasNext()
         {
+        	if(first) {
+        		first = false;
+        		return true;
+        	}
 	        if(((Node)cursor).next == null)
 	        {
 	            return false;
@@ -137,8 +142,8 @@ public class Publisher
         @Override
         public Object next()
         {
-            cursor = ((Node)subscriber).copyNode();
-            subscriber = ((Node)cursor).next;
+            cursor = ((Node)t).copyNode();
+            t = ((Node)cursor).next;
             return cursor;
         }
     }
@@ -162,8 +167,8 @@ public class Publisher
 
 	    Iterator subscribersIterator = subscribers.createIterator();
 	    while(subscribersIterator.hasNext()) {
-	        Node subscriber = (Node)subscribersIterator.next();
-	        subscriber.accept(deliveryAgent);
+	        Node t = (Node)subscribersIterator.next();
+	        t.accept(deliveryAgent);
         }
         
 		
