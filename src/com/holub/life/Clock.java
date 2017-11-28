@@ -104,7 +104,7 @@ public class Clock
 						startTicking(   toDo=='A' ? 500:	  // agonizing
 										toDo=='S' ? 150:	  // slow
 										toDo=='M' ? 70 :	  // medium
-										toDo=='F' ? 30 : 0 ); // fast
+										toDo=='F' ? 30 : 0 ); // fast , halt
 				}
 			};
 																	// {=midSetup}
