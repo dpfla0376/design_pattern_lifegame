@@ -13,7 +13,6 @@ import com.holub.life.Universe;
 /*** ****************************************************************
  * The Resident class implements a single cell---a "resident" of a
  * block.
- *ㅊ
  * @include /etc/license.txt
  */
 

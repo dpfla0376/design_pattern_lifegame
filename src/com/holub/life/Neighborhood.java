@@ -139,6 +139,12 @@ public final class Neighborhood implements Cell
              * 내가(Neighborhood) 활성화 되어있거나, 나의 이웃중 하나라도 active한 상태이면..인줄알았는데 뭐지
              * 이 Cell들은 Neighborhood
              * */
+
+            /**
+             * 2차 들어옴
+             * 내가(Resident) 활성화되어있거나,
+             * 내 이웃들중(Resident) 하나라도 상태변화가 있을 예정이면
+             */
 			Cell	northCell,		southCell,
 					eastCell,		westCell,
 					northeastCell, northwestCell,
@@ -151,7 +157,7 @@ public final class Neighborhood implements Cell
 				{
 					/** Get the current cell's eight neighbors */
 
-                    /** 1차 들어옴.
+                    /** 1차 들어옴
                      * Universe 대상. 인자로 들어온 내 이웃들은 다 Dummy
                      * Neighborhood grid[][]
                      * 새로 구해줄 이웃은 Neighborhood
