@@ -85,6 +85,12 @@ public class Clock
 		// First set up a single listener that will handle all the
 		// menu-selection events except "Exit"
 
+
+		/**
+		 * yealim : 개선사항
+		 * ActionListener modifier를 따로 class로 빼서 각 메뉴마다 ActionListener 따로 구현..? (Factory Method Pattern 같오)
+		 * 근데 if문이 여기 하나뿐이라서 따로 빼는 것이 의미가 있는지 의문... class 각각 만드는게 더 overhead일지도...
+		 * */
 		ActionListener modifier =									//{=startSetup}
 			new ActionListener()
 			{	public void actionPerformed(ActionEvent e)
