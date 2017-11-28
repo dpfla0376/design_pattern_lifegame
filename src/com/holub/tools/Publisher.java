@@ -113,13 +113,13 @@ public class Publisher
 	}
 
 	private class NodeIterator implements Iterator {
-	    Object t = null;
+	    Object subscriber = null;
 	    Object cursor = null;
 	    boolean first = true;
-	    NodeIterator(Object t)
+	    NodeIterator(Object subscriber)
         {
-	        this.t = t;
-	        cursor = this.t;
+	        this.subscriber = subscriber;
+	        cursor = this.subscriber;
         }
 
         @Override
@@ -142,8 +142,8 @@ public class Publisher
         @Override
         public Object next()
         {
-            cursor = ((Node)t).copyNode();
-            t = ((Node)cursor).next;
+            cursor = ((Node)subscriber).copyNode();
+            subscriber = ((Node)cursor).next;
             return cursor;
         }
     }
