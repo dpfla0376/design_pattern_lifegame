@@ -1,7 +1,6 @@
 package com.holub.ui;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,14 +13,20 @@ public class ColorTheme {
     private static ColorTheme instance;
     public static Theme theme;
 
+    public static Color BORDER_COLOR;
+    public static Color LIVE_COLOR;
+    public static Color DEAD_COLOR;
+    public static Color NEIGHBOR_BORDER_COLOR;
+
     ColorTheme() {
         createMenu();
-        theme = new PurpleColorTheme();
+        setColorTheme(new PurpleColorTheme());
     }
 
     ColorTheme(Theme theme) {
         createMenu();
-        this.theme = theme;
+        setColorTheme(theme);
+
     }
 
     public static synchronized ColorTheme getInstance() {
@@ -37,6 +42,10 @@ public class ColorTheme {
 
     public void setColorTheme(Theme theme) {
         this.theme = theme;
+        BORDER_COLOR = theme.BORDER_COLOR;
+        LIVE_COLOR = theme.LIVE_COLOR;
+        NEIGHBOR_BORDER_COLOR = theme.NEIGHBOR_BORDER_COLOR;
+        DEAD_COLOR = theme.DEAD_COLOR;
     }
 
     private void createMenu() {
