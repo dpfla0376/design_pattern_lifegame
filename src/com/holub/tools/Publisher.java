@@ -167,8 +167,8 @@ public class Publisher
 
 	    Iterator subscribersIterator = subscribers.createIterator();
 	    while(subscribersIterator.hasNext()) {
-	        Node t = (Node)subscribersIterator.next();
-	        t.accept(deliveryAgent);
+	        Node subscriber = (Node)subscribersIterator.next();
+	        subscriber.accept(deliveryAgent);
         }
         
 		
