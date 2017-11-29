@@ -125,7 +125,7 @@ public class Clock
 	}	//{=endCreateMenus}
 
 	private class MenuActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
+	        public void actionPerformed(ActionEvent e) {
 			startTicking(0);
 		}
 	}
