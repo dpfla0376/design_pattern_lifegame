@@ -583,10 +583,6 @@ public final class Neighborhood implements Cell
 		{	return liveCells.contains(location);
 		}
 
-		public Object getState() {
-			return liveCells;
-		}
-
 		public Collection getLiveCells() {
 			return liveCells;
 		}

@@ -26,6 +26,10 @@ import java.util.List;
 public class Universe extends JPanel
 {	private 		final Cell  	outermostCell;
 	private static	final Universe 	theInstance = new Universe();
+
+	/**
+	 * Univser의 State를 저장하는 Memento들의 stack
+	 * */
 	private List mementos = new ArrayList<Cell.Memento>();
 
 	/** The default height and width of a Neighborhood in cells.
@@ -236,16 +240,14 @@ public class Universe extends JPanel
 	}
 
 	/**
-	 *  popMemento()
+	 * popMemento()
+	 * Universe의 상태를 저장하는 Memento stack에서 가장 최근 Memento 하나를 꺼내어
+	 * 해당 상태로 Universe를 복구한다.
 	 * */
 	private void doLoadLocal() {
 			if(mementos.size() > 0) {
 				Clock.instance().stop();        // stop the game and
 				outermostCell.clear();            // clear the board.
-
-//				Storable memento = outermostCell.createMemento();	//
-//				memento.load((Cell.Memento) mementos.remove(mementos.size()-1));
-//				outermostCell.transfer(memento, new Point(0, 0), Cell.LOAD);
 
 				outermostCell.transfer((Cell.Memento) mementos.remove(mementos.size()-1), new Point(0, 0), Cell.LOAD);
 			}
@@ -254,6 +256,8 @@ public class Universe extends JPanel
 
 	/**
 	 * pushMemento()
+	 * 현재 Universe의 상태를 저장하여 Memento stack에 넣는다.
+	 * Go의 Tick, Agonizing, Slow, Medium, Fast 메뉴 클릭 시 tick() 이벤트 발생 전에 호출된다.
 	 * */
 	public void doStoreLocal() {
 			Clock.instance().stop();        // stop the game
