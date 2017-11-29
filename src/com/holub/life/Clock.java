@@ -127,12 +127,16 @@ public class Clock
 		public void actionPerformed(ActionEvent e) {
 			startTicking(0);
 		}
+		protected void storeCurrent() {
+			Universe.instance().doStoreLocal();
+		}
 	}
 
 	private class TickActionListener extends MenuActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			storeCurrent();
 			tick();
 		}
 	}
@@ -141,6 +145,7 @@ public class Clock
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			storeCurrent();
 			startTicking(500);
 		}
 	}
@@ -149,6 +154,7 @@ public class Clock
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			storeCurrent();
 			startTicking(150);
 		}
 	}
@@ -157,6 +163,7 @@ public class Clock
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			storeCurrent();
 			startTicking(70);
 		}
 	}
@@ -165,10 +172,10 @@ public class Clock
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			storeCurrent();
 			startTicking(30);
 		}
 	}
-
 
 	private Publisher publisher = new Publisher();
 
