@@ -121,7 +121,7 @@ public class Clock
 		MenuSite.addLine(this,"Go","Slow",		 		new SlowActionListener());
 		MenuSite.addLine(this,"Go","Medium",	 	 	new MediumActionListener());
 		MenuSite.addLine(this,"Go","Fast",				new FastActionListener());
-        MenuSite.addLine(this,"Go","Snail",				new SnailActionListener());// {=endSetup}
+		MenuSite.addLine(this,"Go","Snail",				new SnailActionListener());// {=endSetup}
 	}	//{=endCreateMenus}
 
 	private class MenuActionListener implements ActionListener {
