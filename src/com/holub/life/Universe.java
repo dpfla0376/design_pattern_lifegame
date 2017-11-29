@@ -1,19 +1,16 @@
 package com.holub.life;
 
-import java.io.*;
-
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
-
 import com.holub.io.Files;
 import com.holub.ui.MenuSite;
 
-import com.holub.life.Cell;
-import com.holub.life.Storable;
-import com.holub.life.Clock;
-import com.holub.life.Neighborhood;
-import com.holub.life.Resident;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Universe is a mediator that sits between the Swing
@@ -29,6 +26,7 @@ import com.holub.life.Resident;
 public class Universe extends JPanel
 {	private 		final Cell  	outermostCell;
 	private static	final Universe 	theInstance = new Universe();
+	private List mementos = new ArrayList<Cell.Memento>();
 
 	/** The default height and width of a Neighborhood in cells.
 	 *  If it's too big, you'll run too slowly because
@@ -152,6 +150,15 @@ public class Universe extends JPanel
 			}
 		);
 
+		MenuSite.addLine
+				(this, "Grid", "Resotre Last State",
+						new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								doLoadLocal();
+							}
+						}
+				);
+
 		/**
          * Clock이 TimerTask를 돌면서 run() -> tick()
          * tick()에서, 퍼블리셔가 퍼블리싱
@@ -226,6 +233,34 @@ public class Universe extends JPanel
 		{	JOptionPane.showMessageDialog( null, "Write Failed!",
 					"The Game of Life", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+	/**
+	 *  popMemento()
+	 * */
+	private void doLoadLocal() {
+			if(mementos.size() > 0) {
+				Clock.instance().stop();        // stop the game and
+				outermostCell.clear();            // clear the board.
+
+//				Storable memento = outermostCell.createMemento();	//
+//				memento.load((Cell.Memento) mementos.remove(mementos.size()-1));
+//				outermostCell.transfer(memento, new Point(0, 0), Cell.LOAD);
+
+				outermostCell.transfer((Cell.Memento) mementos.remove(mementos.size()-1), new Point(0, 0), Cell.LOAD);
+			}
+		repaint();
+	}
+
+	/**
+	 * pushMemento()
+	 * */
+	public void doStoreLocal() {
+			Clock.instance().stop();        // stop the game
+
+			Storable memento = outermostCell.createMemento();
+			outermostCell.transfer(memento, new Point(0, 0), Cell.STORE);
+			mementos.add(memento);
 	}
 
 	/** Override paint to ask the outermost Neighborhood

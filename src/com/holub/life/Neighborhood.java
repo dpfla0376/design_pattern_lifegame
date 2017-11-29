@@ -565,6 +565,11 @@ public final class Neighborhood implements Cell
 			}
 		}
 
+		public void load( Cell.Memento memento )
+		{
+			liveCells = ((NeighborhoodState) memento).getLiveCells();
+		}
+
 		public void flush( OutputStream out ) throws IOException
 		{	ObjectOutputStream sink = new ObjectOutputStream(out);
 			sink.writeObject( liveCells );
@@ -576,6 +581,14 @@ public final class Neighborhood implements Cell
 
 		public boolean isAlive(Point location)
 		{	return liveCells.contains(location);
+		}
+
+		public Object getState() {
+			return liveCells;
+		}
+
+		public Collection getLiveCells() {
+			return liveCells;
 		}
 
 		public String toString()

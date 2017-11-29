@@ -1,5 +1,6 @@
 package com.holub.life;
 import java.awt.*;
+import java.util.Collection;
 
 import com.holub.life.Storable;
 
@@ -103,6 +104,11 @@ public interface Cell
 		 *  a cell is alive.
 		 */
 		boolean isAlive	(Point location);
+
+		/**
+		 * 한번해보쟈.. liveCells 등 저장한 자료 가져오기
+		 * */
+		Object getState();
 	}
 
 	/**  This method is used internally to save or restore the state
