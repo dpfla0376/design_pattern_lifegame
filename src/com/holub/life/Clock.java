@@ -181,10 +181,11 @@ public class Clock
 	private class SnailActionListener extends  MenuActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+        	storeCurrent();
             startTicking(250);
         }
     }
-    
+
 	private Publisher publisher = new Publisher();
 
 	/** Add a listener that's notified every time the clock ticks:
