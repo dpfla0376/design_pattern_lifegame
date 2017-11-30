@@ -20,7 +20,7 @@ public class ColorTheme {
 
     ColorTheme() {
         createMenu();
-        setColorTheme(new PurpleColorTheme());
+        setColorTheme(new OrangeColorTheme());
     }
 
     ColorTheme(Theme theme) {
@@ -33,7 +33,7 @@ public class ColorTheme {
         if (instance == null) {
             synchronized (ColorTheme.class) {
                 if (instance == null) {
-                    instance = new ColorTheme(new PurpleColorTheme());  // default is purple color theme
+                    instance = new ColorTheme(new OrangeColorTheme());  // default is Orange color theme
                 }
             }
         }
