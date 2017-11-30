@@ -115,17 +115,39 @@ public class Clock
 		MenuSite.addLine(this,"Go","Medium",	 	 	modifier);
 		MenuSite.addLine(this,"Go","Fast",				modifier); // {=endSetup} */
 
-		MenuSite.addLine(this,"Go","Halt",  			new MenuActionListener());
-		MenuSite.addLine(this,"Go","Tick (Single Step)", new TickActionListener());
-		MenuSite.addLine(this,"Go","Agonizing",	 	  	new AgonizingActionListener());
-		MenuSite.addLine(this,"Go","Slow",		 		new SlowActionListener());
-		MenuSite.addLine(this,"Go","Medium",	 	 	new MediumActionListener());
-		MenuSite.addLine(this,"Go","Fast",				new FastActionListener());
-		MenuSite.addLine(this,"Go","Snail",				new SnailActionListener());// {=endSetup}
+		MenuSite.addLine(this,"Go","Halt",  			createMenuListener("Halt"));
+		MenuSite.addLine(this,"Go","Tick (Single Step)", createMenuListener("Tick"));
+		MenuSite.addLine(this,"Go","Agonizing",	 	  	createMenuListener("Agonizing"));
+		MenuSite.addLine(this,"Go","Slow",		 		createMenuListener("Slow"));
+		MenuSite.addLine(this,"Go","Medium",	 	 	createMenuListener("Medium"));
+		MenuSite.addLine(this,"Go","Fast",				createMenuListener("Fast"));
+		MenuSite.addLine(this,"Go","Snail",				createMenuListener("Snail"));// {=endSetup}
 	}	//{=endCreateMenus}
 
+    public ActionListener createMenuListener(String menu) {
+        ActionListener modifier = null;
+
+        if(menu.equals("Tick")) {
+            modifier = new TickActionListener();
+        } else if(menu.equals("Agonizing")) {
+            modifier = new AgonizingActionListener();
+        }  else if(menu.equals("Slow")) {
+            modifier = new SlowActionListener();
+        } else if(menu.equals("Medium")) {
+            modifier = new MediumActionListener();
+        } else if(menu.equals("Fast")) {
+            modifier = new FastActionListener();
+        } else if(menu.equals("Snail")) {
+            modifier = new SnailActionListener();
+        } else {
+            modifier = new MenuActionListener();
+        }
+
+        return modifier;
+    }
+
 	private class MenuActionListener implements ActionListener {
-	        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
 			startTicking(0);
 		}
 		protected void storeCurrent() {
