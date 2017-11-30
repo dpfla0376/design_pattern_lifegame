@@ -30,7 +30,7 @@ public class Universe extends JPanel
 	/**
 	 * Univser의 State를 저장하는 Memento들의 stack
 	 * */
-	private List mementos = new ArrayList<Cell.Memento>();
+    private List mementos = new ArrayList<Storable>();
 
 	/** The default height and width of a Neighborhood in cells.
 	 *  If it's too big, you'll run too slowly because
@@ -248,8 +248,7 @@ public class Universe extends JPanel
 			if(mementos.size() > 0) {
 				Clock.instance().stop();        // stop the game and
 				outermostCell.clear();            // clear the board.
-
-				outermostCell.transfer((Cell.Memento) mementos.remove(mementos.size()-1), new Point(0, 0), Cell.LOAD);
+				outermostCell.transfer((Storable) mementos.remove(mementos.size()-1), new Point(0, 0), Cell.LOAD);
 			}
 		repaint();
 	}
