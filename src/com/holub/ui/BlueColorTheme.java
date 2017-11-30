@@ -14,5 +14,6 @@ public class BlueColorTheme extends Theme {
         LIVE_COLOR = Colors.MEDIUM_BLUE;
         DEAD_COLOR = Color.WHITE;
         NEIGHBOR_BORDER_COLOR = Colors.DARK_BLUE;
+        ACTIVE_BORDER_COLOR = Color.BLUE;
     }
 }
