@@ -13,6 +13,7 @@ public class OrangeColorTheme extends Theme {
         LIVE_COLOR = Color.RED;
         DEAD_COLOR = Colors.LIGHT_YELLOW;
         NEIGHBOR_BORDER_COLOR = Colors.DARK_ORANGE;
+        ACTIVE_BORDER_COLOR = Color.BLUE;
     }
 
 }

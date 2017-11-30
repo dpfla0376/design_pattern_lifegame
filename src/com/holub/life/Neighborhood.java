@@ -418,7 +418,7 @@ public final class Neighborhood implements Cell
 			g.drawRect( here.x, here.y, here.width, here.height );
 
 			if( amActive )
-			{	g.setColor( Color.BLUE );
+			{	g.setColor( ColorTheme.ACTIVE_BORDER_COLOR );
 				g.drawRect(	here.x+1,	  here.y+1,
 							here.width-2, here.height-2 );
 			}

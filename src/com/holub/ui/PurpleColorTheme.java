@@ -14,5 +14,6 @@ public class PurpleColorTheme extends Theme {
         LIVE_COLOR = Colors.MEDIUM_PURPLE;
         DEAD_COLOR = Color.WHITE;
         NEIGHBOR_BORDER_COLOR = Colors.DARK_PURPLE;
+        ACTIVE_BORDER_COLOR = Color.BLUE;
     }
 }
